@@ -25,35 +25,12 @@ const main = async(): Promise<void> => {
     if(key.length !== 4 || key.includes(NaN))
         return console.log('Key must be 4 numbers')
 
-    const encryption = hill(textInput, key)
-    const decryption = hill(textInput, createInverseKey(key))
+    const encryption = hillCipher(textInput, key)
+    const decryption = hillCipher(textInput, createInverseKey(key))
     console.table({encryption, decryption})
 }
 
-const createInverseKey = (key: number[]) => {
-    //To make inverse matrix, swap a and d, negate b and c, divide everything by determinant (ad-bc)
-    const d = key[0],
-        b = -key[1],
-        c = -key[2],
-        a = key[3];
-    let det = (a*d) - (b*c)
-    //get bezout coefficients from extended euclidean algorithm
-    let {coeffs} = gcdExtended(det, 26)
-
-    //pass bezout coefficient's u value to determine the inverse modulus
-    let inverseMod = modInverse(coeffs.u, 26)
-
-    let inverseKey = [];
-    //Push keys to array and return. Each key should be multiplied by the modular inverse and then made positive.
-    inverseKey.push(((((a * inverseMod) % 26) + 26 ) % 26),
-    ((((b * inverseMod) % 26) + 26 ) % 26),
-    ((((c * inverseMod) % 26) + 26 ) % 26),
-    ((((d * inverseMod) % 26) + 26 ) % 26));    
-
-    return inverseKey;
-}
-
-const hill = (message: string, key: number[]) => {
+const hillCipher = (message: string, key: number[]) => {
 
     const UPPERCASE_UNICODE_VALUE = 65;
     const LOWERCASE_UNICODE_VALUE = 97;
@@ -106,6 +83,29 @@ const hill = (message: string, key: number[]) => {
     
     return resultString;
 
+}
+
+const createInverseKey = (key: number[]) => {
+    //To make inverse matrix, swap a and d, negate b and c, divide everything by determinant (ad-bc)
+    const d = key[0],
+        b = -key[1],
+        c = -key[2],
+        a = key[3];
+    let det = (a*d) - (b*c)
+    //get bezout coefficients from extended euclidean algorithm
+    let {coeffs} = gcdExtended(det, 26)
+
+    //pass bezout coefficient's u value to determine the inverse modulus
+    let inverseMod = modInverse(coeffs.u, 26)
+
+    let inverseKey = [];
+    //Push keys to array and return. Each key should be multiplied by the modular inverse and then made positive.
+    inverseKey.push(((((a * inverseMod) % 26) + 26 ) % 26),
+    ((((b * inverseMod) % 26) + 26 ) % 26),
+    ((((c * inverseMod) % 26) + 26 ) % 26),
+    ((((d * inverseMod) % 26) + 26 ) % 26));    
+
+    return inverseKey;
 }
 
 //Finds the modulus inverse
