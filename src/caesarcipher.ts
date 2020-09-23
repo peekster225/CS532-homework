@@ -1,3 +1,12 @@
+/***********************************************************************
+ * Program that can encrypt and decrypt using the general Caesar Cipher.
+ * Asks user for the text to be modified, and the shift value.
+ * 
+ * By Matt <peekster225@gmail.com>
+ * September 21st, 2020.
+ ***********************************************************************/
+
+
 import readline from 'readline';
 
 /**
@@ -48,7 +57,7 @@ const caesar = (inputText: string, shift: number):string => {
     
     //Remove any whitespace
     inputText = inputText.replace(/ /g, ''); 
-    
+
     /**
      * String.fromCharCode returns a string created from the specified sequence of UTF-16 values.
      * 

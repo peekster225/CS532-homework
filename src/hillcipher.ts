@@ -1,3 +1,11 @@
+/***********************************************************************
+ * Program that can encrypt and decrypt using a 2*2 Hill cipher.
+ * Asks the user for the message and the hill cipher to be used. 
+ * To create the decryption, the inverse of the key gets used.
+ * By Matt <peekster225@gmail.com>
+ * September 21st, 2020.
+ ***********************************************************************/
+
 import readline from 'readline';
 
 /**
@@ -30,6 +38,11 @@ const main = async(): Promise<void> => {
     console.table({encryption, decryption})
 }
 
+/**
+ * Uses a 2*2 matrix as a key to encrypt a message with a hill cipher.
+ * @param message The message to be modified
+ * @param key The 2*2 matrix to be used in encryption.
+ */
 const hillCipher = (message: string, key: number[]) => {
 
     const UPPERCASE_UNICODE_VALUE = 65;
@@ -84,7 +97,11 @@ const hillCipher = (message: string, key: number[]) => {
     return resultString;
 
 }
-
+/**
+ * Takes a 2*2 matrix and inverts it.
+ * @param key 2*2 Matrix to be inverted
+ * @returns Inverse 2*2 matrix of key
+ */
 const createInverseKey = (key: number[]) => {
     //To make inverse matrix, swap a and d, negate b and c, divide everything by determinant (ad-bc)
     const d = key[0],
@@ -108,7 +125,12 @@ const createInverseKey = (key: number[]) => {
     return inverseKey;
 }
 
-//Finds the modulus inverse
+/**
+ * Extended Euclidean Algorithm
+ * Returns the GCD, Coefficients of Bezout's identity, and the original values. 
+ * @param a first integer  
+ * @param b second integer
+ */
 const gcdExtended = (a:number, b: number) => {
     let tempRemainder,
         oldRemainder = a,
@@ -149,7 +171,12 @@ const gcdExtended = (a:number, b: number) => {
 }
 
 
-
+/**
+ * Computes the inverse modulus. 
+ * Uses input values of a mod m
+ * @param a first integer
+ * @param m second integer 
+ */
 const modInverse = (a: number, m: number) => {
     // Compute new modulus, account for any negative numbers
     // A = number, M = modulus value
