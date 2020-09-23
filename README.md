@@ -1,5 +1,4 @@
-# Programs for CS532 - Cryptography
-
+# Programs for CS 532 Cryptography & Data Security
 To run programs:
 - First clone the repository
 - Next, download the required node packages with npm i
