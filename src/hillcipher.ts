@@ -42,6 +42,7 @@ const main = async(): Promise<void> => {
  * Uses a 2*2 matrix as a key to encrypt a message with a hill cipher.
  * @param message The message to be modified
  * @param key The 2*2 matrix to be used in encryption.
+ * @returns Modified message
  */
 const hillCipher = (message: string, key: number[]) => {
 
@@ -127,9 +128,9 @@ const createInverseKey = (key: number[]) => {
 
 /**
  * Extended Euclidean Algorithm
- * Returns the GCD, Coefficients of Bezout's identity, and the original values. 
  * @param a first integer  
  * @param b second integer
+ * @returns GCD, Coefficients of Bezout's identity, and the original values.
  */
 const gcdExtended = (a:number, b: number) => {
     let tempRemainder,
@@ -176,6 +177,7 @@ const gcdExtended = (a:number, b: number) => {
  * Uses input values of a mod m
  * @param a first integer
  * @param m second integer 
+ * @returns new modulus
  */
 const modInverse = (a: number, m: number) => {
     // Compute new modulus, account for any negative numbers
